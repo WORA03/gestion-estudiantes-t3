@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sistema CRUD para gestionar estudiantes. Proyecto académico de Programación III.">
+  <title>Gestión de Estudiantes</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Inicio">
+      <span class="brand-mark">GE</span>
+      <span><strong>Gestión Estudiantil</strong><small>Panel de administración</small></span>
+    </a>
+    <span class="topbar-tag">Programación III · CRUD</span>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">SISTEMA ACADÉMICO</p>
+        <h1>Estudiantes</h1>
+        <p class="muted">Administra los registros académicos desde un solo lugar.</p>
+      </div>
+      <button class="button button-primary" id="newStudentBtn" type="button">＋ Nuevo estudiante</button>
+    </section>
+
+    <section class="stats" aria-label="Resumen">
+      <article class="stat-card"><span class="stat-label">Total estudiantes</span><strong id="totalCount">0</strong><span class="stat-note">Registros guardados</span></article>
+      <article class="stat-card"><span class="stat-label">Activos</span><strong id="activeCount">0</strong><span class="stat-note">Estado activo</span></article>
+      <article class="stat-card"><span class="stat-label">Carreras</span><strong id="careerCount">0</strong><span class="stat-note">Carreras registradas</span></article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div><h2>Listado de estudiantes</h2><p class="muted">Busca, edita o elimina un registro.</p></div>
+        <div class="toolbar">
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Buscar por nombre, matrícula o correo..." aria-label="Buscar estudiantes"></label>
+          <select id="statusFilter" aria-label="Filtrar por estado"><option value="all">Todos los estados</option><option value="Activo">Activo</option><option value="Inactivo">Inactivo</option></select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Estudiante</th><th>Matrícula</th><th>Carrera</th><th>Correo</th><th>Estado</th><th class="actions-heading">Acciones</th></tr></thead>
+          <tbody id="studentsTableBody"></tbody>
+        </table>
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">♙</div><h3>No hay estudiantes para mostrar</h3>
+          <p>Agrega un estudiante o cambia los filtros de búsqueda.</p>
+          <button class="button button-primary button-small" id="emptyAddBtn" type="button">Agregar estudiante</button>
+        </div>
+      </div>
+      <div class="panel-footer"><span id="resultsCount">Mostrando 0 estudiantes</span><span>Los datos se guardan en este navegador.</span></div>
+    </section>
+    <p class="footer-note">Proyecto académico · HTML, CSS y JavaScript · Git / Git Flow</p>
+  </main>
+
+  <dialog id="studentDialog" class="dialog">
+    <form id="studentForm" novalidate>
+      <div class="dialog-heading"><div><p class="eyebrow">REGISTRO ACADÉMICO</p><h2 id="dialogTitle">Nuevo estudiante</h2></div><button class="icon-button" id="closeDialogBtn" type="button" aria-label="Cerrar">×</button></div>
+      <input type="hidden" id="studentId">
+      <div class="form-grid">
+        <label>Nombre completo <span>*</span><input id="name" name="name" required maxlength="80" placeholder="Ej. Ana Pérez"></label>
+        <label>Matrícula <span>*</span><input id="studentCode" name="studentCode" required maxlength="20" placeholder="Ej. 2025-0001"></label>
+        <label>Correo electrónico <span>*</span><input id="email" name="email" type="email" required maxlength="100" placeholder="estudiante@correo.com"></label>
+        <label>Teléfono<input id="phone" name="phone" type="tel" maxlength="20" placeholder="809-000-0000"></label>
+        <label class="full-width">Carrera <span>*</span><input id="career" name="career" required maxlength="80" placeholder="Ej. Desarrollo de Software"></label>
+        <label>Fecha de ingreso<input id="enrollmentDate" name="enrollmentDate" type="date"></label>
+        <label>Estado<select id="status" name="status"><option>Activo</option><option>Inactivo</option></select></label>
+      </div>
+      <p class="form-error" id="formError" role="alert"></p>
+      <div class="dialog-actions"><button class="button button-secondary" id="cancelBtn" type="button">Cancelar</button><button class="button button-primary" type="submit" id="saveBtn">Guardar estudiante</button></div>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
